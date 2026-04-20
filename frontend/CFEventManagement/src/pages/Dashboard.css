@@ -1,0 +1,11 @@
+.dash-page { padding: var(--space-12) 0; flex: 1; }
+
+.dash-header {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: var(--space-4); margin-bottom: var(--space-8); flex-wrap: wrap;
+}
+.dash-title {
+  font-size: var(--text-xl); font-weight: 800;
+  letter-spacing: -0.02em; margin: var(--space-1) 0;
+}
+.dash-sub { font-size: var(--text-sm); color: var(--color-text-muted); }

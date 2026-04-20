@@ -1,0 +1,169 @@
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* This is the key fix: Desktop gets 400px fixed box with a massive 5rem gap */
+@media (min-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 1fr 400px;
+    gap: 5rem;
+  }
+}
+
+.detail-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.detail-days {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.detail-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-5);
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.detail-desc {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  margin-bottom: var(--space-8);
+  font-size: var(--text-lg);
+}
+
+.detail-meta-row {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.meta-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.meta-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.meta-value {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.meta-raised {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.contribute-box {
+  padding: var(--space-8);
+  position: sticky;
+  top: 100px;
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+.prog-numbers {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+
+.prog-raised {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.prog-of {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-left: var(--space-2);
+}
+
+.prog-pct {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.contrib-form {
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-6);
+}
+
+.contrib-heading {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: var(--text);
+}
+
+.contrib-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.status-badge-box {
+  margin-top: var(--space-6);
+  text-align: center;
+  padding: var(--space-4);
+  border-radius: var(--r-lg);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.funded-box {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.failed-box {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.pending-box {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.not-found {
+  padding: var(--space-20);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--text-xl);
+}

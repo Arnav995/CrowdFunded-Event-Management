@@ -1,0 +1,7 @@
+.create-page { padding: var(--space-12) 0; flex: 1; }
+.create-title { font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.02em; margin: var(--space-1) 0 var(--space-2); }
+.create-sub { color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-8); }
+.create-card { padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-5); }
+.create-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+@media (max-width: 560px) { .create-row { grid-template-columns: 1fr; } }
+.create-actions { display: flex; justify-content: flex-end; gap: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-divider); }
