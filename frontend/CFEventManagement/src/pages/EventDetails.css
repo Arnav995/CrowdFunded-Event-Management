@@ -76,14 +76,17 @@
   font-weight: 800;
 }
 
+/* --- FIX: Hardcoded 2rem padding and border-box to fix the cluttered edges --- */
 .contribute-box {
-  padding: var(--space-8);
+  padding: 2rem; 
   position: sticky;
   top: 100px;
   background: var(--surface);
   border-radius: var(--r-xl);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .prog-numbers {
@@ -112,10 +115,11 @@
   color: var(--accent);
 }
 
+/* --- FIX: Clear spacing between the progress section and the form --- */
 .contrib-form {
-  margin-top: var(--space-6);
+  margin-top: 2rem;
   border-top: 1px solid var(--border);
-  padding-top: var(--space-6);
+  padding-top: 2rem;
 }
 
 .contrib-heading {
@@ -132,6 +136,7 @@
   padding: var(--space-3);
   font-size: var(--text-base);
   font-weight: 600;
+  box-sizing: border-box;
 }
 
 .status-badge-box {

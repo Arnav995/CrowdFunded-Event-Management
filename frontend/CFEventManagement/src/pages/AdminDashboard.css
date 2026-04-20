@@ -4,29 +4,163 @@
   display: flex; justify-content: space-between; align-items: center;
   gap: var(--space-4); margin-bottom: var(--space-8); flex-wrap: wrap;
 }
+
 .admin-title {
   font-size: var(--text-xl); font-weight: 800;
   letter-spacing: -0.02em; margin: var(--space-1) 0 0;
 }
 
 /* Pending Cards */
-.pending-list { display: flex; flex-direction: column; gap: var(--space-4); }
+.pending-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: var(--space-6); 
+}
+
 .pending-card {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: var(--space-6); padding: var(--space-6);
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  gap: var(--space-10); 
+  padding: 24px 32px; /* Hardcoded padding to push text away from edges */
+  box-sizing: border-box; /* Forces padding to act inward */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  width: 100%;
 }
-@media (max-width: 640px) { .pending-card { flex-direction: column; } }
-.pending-info { flex: 1; }
+
+.pending-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) { 
+  .pending-card { 
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 24px;
+  } 
+}
+
+.pending-info { 
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pending-info > * {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* The Meta Row Fix */
 .pending-meta {
-  display: flex; align-items: center; gap: var(--space-3);
-  margin-bottom: var(--space-3); flex-wrap: wrap;
+  display: flex; 
+  align-items: center; 
+  gap: var(--space-4); 
+  margin-bottom: var(--space-4); 
+  flex-wrap: wrap;
 }
-.pending-id { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 600; }
-.pending-date { font-size: var(--text-xs); color: var(--color-text-muted); }
-.pending-title { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-2); }
+
+.pending-id { 
+  font-size: var(--text-xs); 
+  color: var(--text-muted); 
+  font-weight: 700; 
+  background: var(--surface-off);
+  padding: 4px 8px;
+  border-radius: var(--r-md);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.pending-date { 
+  font-size: var(--text-sm); 
+  color: var(--text-muted); 
+  font-weight: 600;
+  margin: 0;
+}
+
+.pending-title { 
+  font-size: var(--text-xl); 
+  font-weight: 800; 
+  margin: 0 0 var(--space-2) 0; 
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
 .pending-desc {
-  font-size: var(--text-sm); color: var(--color-text-muted);
-  margin-bottom: var(--space-3); line-height: 1.55;
+  font-size: var(--text-base); 
+  color: var(--text-muted);
+  margin: 0 0 var(--space-5) 0; 
+  line-height: 1.6;
 }
-.pending-target { font-size: var(--text-sm); font-weight: 700; color: var(--color-primary); }
-.pending-actions { display: flex; flex-direction: column; gap: var(--space-2); min-width: 130px; }
+
+/* Fix Target Text */
+.pending-target { 
+  font-size: var(--text-sm); 
+  font-weight: 700; 
+  color: var(--text); 
+  background: var(--surface-off);
+  padding: 8px 16px;
+  border-radius: var(--r-lg);
+  display: inline-block;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.pending-target span {
+  color: var(--accent); 
+}
+
+/* Actions Fix */
+.pending-actions { 
+  display: flex; 
+  flex-direction: row; 
+  gap: var(--space-3); 
+  min-width: fit-content; 
+}
+
+@media (max-width: 600px) {
+  .pending-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.btn-approve, .btn-reject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  border-radius: var(--r-lg);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-approve {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.btn-approve:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-reject {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-reject:hover {
+  background: var(--error);
+  color: white;
+}
