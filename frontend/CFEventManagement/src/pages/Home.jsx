@@ -30,7 +30,7 @@ export default function Home() {
           <span className="section-tag">Community Crowdfunding</span>
           <h1 className="hero-title">Fund events<br />that <em>matter</em></h1>
           <p className="hero-sub">
-            Discover and back community-driven events. Help bring ideas to life — one contribution at a time.
+            Discover and back community-driven events. Help bring ideas to life one contribution at a time.
           </p>
           <div className="hero-actions">
             <Link to="/create-event" className="btn btn-primary hero-cta">Start an Event</Link>
