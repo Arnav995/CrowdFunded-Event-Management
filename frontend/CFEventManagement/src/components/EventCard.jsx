@@ -10,7 +10,7 @@ export default function EventCard({ event }) {
   const daysLeft = Math.max(0, Math.ceil((new Date(event.deadline) - new Date()) / (1000 * 60 * 60 * 24)));
 
   return (
-    <Link to={`/events/${event.event_id}`} className="card event-card" style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
+    <Link to={`/events/${event.event_id}`} className={`event-card ${event.status === "funded" ? "card-funded" : ""}`} style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
       <div>
         <div className="ec-header" style={{ marginBottom: "var(--s3)" }}>
           <span className={`badge badge-${event.status}`}>

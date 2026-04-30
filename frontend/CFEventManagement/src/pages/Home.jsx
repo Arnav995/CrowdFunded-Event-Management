@@ -18,9 +18,12 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = events.filter(e =>
-    e.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = events.filter((e) => {
+  const isSearchMatch = e.title.toLowerCase().includes(search.toLowerCase());
+  const isNotExpired = new Date(e.deadline) >= new Date(); // Only keep events where deadline is today or in the future
+  
+  return isSearchMatch && isNotExpired;
+});
 
   return (
     <div className="page-wrap">

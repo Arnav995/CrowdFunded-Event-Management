@@ -1,6 +1,5 @@
 import db from "../config/db.js";
 
-
 export const contributeToEvent = async(req,res)=>{
 
      try {
@@ -47,11 +46,13 @@ export const contributeToEvent = async(req,res)=>{
           );
 
           // HANDLING FUNDING TO NOT GO ABOVE Target Amount
+          // FIX: Wrapped event_id in brackets and parsed values to Floats to ensure accurate math
           const [updated] = await db.query(
                `SELECT current_amount, target_amount FROM events WHERE event_id = ?`,
-               event_id
+               [event_id] 
           )
-          if(updated[0].current_amount >= updated[0].target_amount){
+
+          if(parseFloat(updated[0].current_amount) >= parseFloat(updated[0].target_amount)){
                await db.query(`
                     UPDATE events SET status = 'funded' WHERE event_id = ?`,
                [event_id]);

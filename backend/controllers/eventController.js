@@ -29,7 +29,10 @@ export const createEvent = async(req,res)=>{
 export const getApprovedEvent = async(req,res)=>{
      try {
           const [rows] = await db.query(
-               `SELECT * FROM events WHERE status = 'approved'`
+               `SELECT * FROM events WHERE status IN ('approved', 'funded')
+                ORDER BY 
+                  CASE WHEN status = 'approved' THEN 1 ELSE 2 END,
+                  event_id DESC`
           );
           res.json(rows);
      } catch (err) {

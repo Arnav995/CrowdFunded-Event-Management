@@ -73,3 +73,78 @@ body {
   font-size: 0.78rem;
   color: var(--muted);
 }
+/* ===== FUNDED CARD — Royal Treatment ===== */
+
+.event-card.card-funded {
+  background: linear-gradient(
+    145deg,
+    rgba(212, 175, 55, 0.07) 0%,
+    var(--card) 60%
+  );
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.15),
+    0 8px 32px rgba(212, 175, 55, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.event-card.card-funded::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(212, 175, 55, 0.08) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0.6s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.event-card.card-funded:hover::before {
+  background-position: -200% 0;
+}
+
+.event-card.card-funded:hover {
+  border-color: rgba(212, 175, 55, 0.85);
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.3),
+    0 12px 40px rgba(212, 175, 55, 0.18);
+}
+
+/* Gold badge */
+.status-badge.status-funded {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  font-weight: 700;
+}
+
+.status-badge.status-funded::before {
+  content: "✦ ";
+  font-size: 0.65em;
+}
+
+/* Gold progress fill for funded cards */
+.card-funded .progress-fill {
+  background: linear-gradient(90deg, #b8860b, #f5d060, #d4af37) !important;
+}
+
+/* Gold percentage label */
+.card-funded .progress-labels span:last-child {
+  color: #d4af37;
+  font-weight: 800;
+}
+
+/* Gold raised amount */
+.card-funded .progress-labels span:first-child {
+  color: #d4af37;
+  font-weight: 700;
+}
