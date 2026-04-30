@@ -9,6 +9,7 @@ import transactionRouter from "./routes/transactionRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import eventRouter from "./routes/eventRoutes.js";
 import authRouter from "./routes/authRoutes.js"
+import walletRouter from "./routes/walletRoutes.js";
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use("/api",contributionRouter);
 app.use("/api/auth", authRouter);// login and signup
 
 app.use("/api/transactions", transactionRouter);
+
+app.use("/api/wallet", walletRouter);
 
 app.use("/api/events",eventRouter);
 

@@ -1,7 +1,89 @@
 .create-page { padding: var(--space-12) 0; flex: 1; }
-.create-title { font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.02em; margin: var(--space-1) 0 var(--space-2); }
-.create-sub { color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-8); }
-.create-card { padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-5); }
-.create-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-@media (max-width: 560px) { .create-row { grid-template-columns: 1fr; } }
-.create-actions { display: flex; justify-content: flex-end; gap: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-divider); }
+
+.create-title { 
+  font-size: var(--text-xl); 
+  font-weight: 800; 
+  letter-spacing: -0.02em; 
+  margin: var(--space-1) 0 var(--space-2); 
+}
+
+.create-sub { 
+  color: var(--muted); 
+  font-size: var(--text-sm); 
+  margin-bottom: var(--space-8); 
+}
+
+.create-card { 
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;           /* hardcoded — no variable dependency */
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px;               /* hardcoded too, same reason */
+}
+
+.form-group { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+/* inputs use --bg2 so they're visibly darker than the --card surface */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent3);
+  box-shadow: 0 0 0 3px rgba(67, 233, 123, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+.req { color: var(--accent2); }
+
+.create-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: var(--space-5); 
+}
+@media (max-width: 560px) { 
+  .create-row { grid-template-columns: 1fr; } 
+}
+
+.create-actions { 
+  display: flex; 
+  justify-content: flex-end; 
+  gap: var(--space-3); 
+  padding-top: var(--space-2); 
+  border-top: 1px solid var(--border); 
+}

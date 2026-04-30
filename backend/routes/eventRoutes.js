@@ -8,7 +8,8 @@ import{
      checkExpiredEvents,
      getEventById,
      getUserEvents,
-     getApprovedEvent
+     getApprovedEvent,
+     processExpiredEvents
 } from "../controllers/eventController.js";
 import {verifyToken} from "../middleware/authMiddleware.js"
 
@@ -26,6 +27,9 @@ eventRouter.get("/my-events", verifyToken,getUserEvents)
 
 // ADMIN / SYSTEM
 eventRouter.put("/check-expired", checkExpiredEvents);
+
+// Refund system
+eventRouter.put("process-expired",processExpiredEvents);
 
 // CREATE AND EVENT POST Req
 eventRouter.post("/", verifyToken,createEvent)

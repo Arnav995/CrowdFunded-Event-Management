@@ -83,6 +83,28 @@ export const checkExpiredEvents = async(req,res)=>{
           res.status(500).json({error:"Failed to check Expired Events"});
      }
 }
+// Now we are gonna implement the refund system where
+// the money comes back to the user just in case event crossed deadline
+// whilst failing to fund fully
+export const processExpiredEvents = async(req,res)=>{
+try {
+     const [events] = await db.query(`
+          SELECT event_id
+          FROM events
+          WHERE deadline < NOW()
+          AND status = 'approved'
+          `);
+     
+     for(let event of events){
+          await db.query("CALL process_refunds(?)",[event.event_id]);
+     }
+
+     res.json({message: "Refunds Processed"});
+} catch (err) {
+     res.status(500).json({error:"Refund Failed"});
+}    
+}
+
 export const getEventProgress = async(req,res) => {
      try {
           const {id} = req.params;

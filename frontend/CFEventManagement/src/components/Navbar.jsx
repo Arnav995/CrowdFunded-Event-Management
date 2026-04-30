@@ -34,6 +34,7 @@ export default function Navbar() {
           {token ? (
             <>
               <Link to="/dashboard" className={`nav-link ${isActive("/dashboard")}`}>Dashboard</Link>
+<Link to="/wallet" className={`nav-link ${isActive("/wallet")}`}>Wallet</Link>
               <Link to="/create-event" className={`nav-link ${isActive("/create-event")}`}>+ New Event</Link>
               {user?.role === "admin" && (
                 <Link to="/admin" className={`nav-link ${isActive("/admin")}`}>Admin</Link>
@@ -46,6 +47,7 @@ export default function Navbar() {
             <>
               <Link to="/login" className="nav-link">Login</Link>
               <Link to="/signup" className="btn btn-primary" style={{ marginLeft: "var(--space-2)" }}>Sign Up</Link>
+              
             </>
           )}
         </div>

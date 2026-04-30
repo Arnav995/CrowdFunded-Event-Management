@@ -33,3 +33,23 @@ export const approveEvent    = (id, token) => put(`${BASE}/admin/events/${id}/ap
 export const rejectEvent     = (id, token) => put(`${BASE}/admin/events/${id}/reject`, null, token);
 export const checkExpired    = (token) => put(`${BASE}/events/check-expired`, null, token);
 export const getAllTransactions = (token) => get(`${BASE}/admin/transactions`, token);
+
+
+export const getWallet = async (token) => {
+  const res = await fetch(`${BASE}/wallet`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
+};
+
+export const addMoney = async (token, amount) => {
+  const res = await fetch(`${BASE}/wallet/add`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ amount }),
+  });
+  return res.json();
+};

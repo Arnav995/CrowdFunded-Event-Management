@@ -8,6 +8,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import CreateEvent from "./pages/CreateEvent";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import "./index.css";
+import Wallet from "./pages/Wallet";
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuth();
@@ -33,6 +34,7 @@ function App() {
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
           <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/wallet" element={<ProtectedRoute><Wallet /></ProtectedRoute>} />
         </Routes>
       </Router>
     </AuthProvider>
