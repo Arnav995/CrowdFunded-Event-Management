@@ -1,86 +1,68 @@
 # CF Events
 
-A full-stack crowdfunding platform for community events where users can create campaigns, add money to a wallet, contribute securely, and track event funding progress.
+A full-stack crowdfunding platform for community events where users can create campaigns, fund them through a wallet system, and track event progress.
 
-## Highlights
+## Tech Stack
+
+- **Backend:** Node.js, Express.js, JWT, bcrypt
+- **Database:** MySQL 8.0 (raw SQL, stored procedures, triggers)
+- **Frontend:** React, CSS
+
+## Core Features
 
 - JWT-based authentication and protected routes
 - Admin approval flow for newly created events
 - Wallet system for adding funds and making contributions
-- Automatic event progress tracking
-- Expired event handling with refund processing
+- Event progress tracking with raised amount and percentage
+- Dashboard for user events and contribution history
 - Admin dashboard for approvals, rejections, and platform stats
+- Expired event handling and refund processing
 
-## Tech Stack
+## Backend
 
-**Backend**
-- Node.js
-- Express.js
-- MySQL
-- JWT Authentication
+The backend is organized around route-controller separation with raw SQL queries and database-driven business logic.
 
-**Frontend**
-- React
-- React Router
-- Custom CSS
-
-## Backend Focus
-
-The backend is built around clear route-controller separation and raw SQL queries.
-
-### Core modules
+### Main modules
 - **Auth** — signup, login, token verification
 - **Events** — create event, fetch approved events, fetch personal events, event progress
-- **Contributions** — contribute to an event from wallet balance
-- **Transactions** — user transaction history
-- **Wallet** — fetch wallet balance, add money
-- **Admin** — approve/reject events, check pending events, view stats
+- **Contributions** — contribute to an event using wallet balance
+- **Transactions** — user contribution history
+- **Wallet** — fetch wallet balance and add money
+- **Admin** — approve/reject events, check pending events, view overall stats
 
-## Database Focus
+## Database
 
-The database handles more than just storage — it powers important business logic.
+The database handles the critical logic of the application, not just storage.
 
-### Implementations
-- **Stored procedures** for wallet crediting and refund processing
-- **Triggers** for automating related updates
-- **Event status flow**: `pending -> approved -> funded / failed / rejected`
-- **Refund system** for failed or expired events
-- **Wallet balance management** tied directly to contribution flow
-
-## Main Features
-
-### User side
-- Register and login
-- Browse approved events
-- View detailed event funding progress
-- Create new event requests
-- Add money to wallet
-- Contribute to events
-- View personal dashboard and transaction history
-
-### Admin side
-- Review pending event requests
-- Approve or reject submissions
-- Monitor all events
-- Check expired events
-- View overall platform stats
+- **Stored procedures** are used for wallet crediting and refund processing
+- **Triggers** automate related updates after transactions/contributions
+- **Event lifecycle** follows `pending -> approved -> funded / failed / rejected`
+- **Wallet balance management** is tied directly to contribution flow
+- **Refund logic** handles expired or failed events safely
 
 ## Run Locally
 
+### Backend
 ```bash
-# backend
 cd backend
 npm install
 npm run dev
 ```
 
+Create a `.env` file inside `backend/`:
+
+```env
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=cf_events
+JWT_SECRET=your_secret_key
+```
+
+### Frontend
 ```bash
-# frontend
 cd frontend
 npm install
 npm run dev
 ```
-
-## Notes
-
-This project puts strong emphasis on backend logic and database-driven workflows, especially wallet handling, contribution safety, event expiry, and refund automation.
