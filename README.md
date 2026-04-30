@@ -109,7 +109,7 @@ DB_NAME=cf_events
 JWT_SECRET=your_secret_key
 ```
 
-### 2. Frontend Setup
+### 3. Frontend Setup
 ```bash
 cd frontend
 npm install
