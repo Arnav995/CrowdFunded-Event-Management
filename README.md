@@ -87,8 +87,12 @@ Follow these steps to get the project running on your local machine.
 - Node.js installed
 - MySQL 8.0 server running
 
-### 1. Database Configuration
-*Initialize your MySQL database using the provided schema files (ensure stored procedures and triggers are imported).*
+## 🚀 Run Locally
+
+### 1. Database Setup
+1.  Open MySQL Workbench or your preferred SQL client.
+2.  Import and run the `database/cfEventManagementSETUP.sql` file to initialize the schema, tables, and seed data.[cite: 2]
+3.  *(Optional)* For a detailed look at the core logic, joins, and manual test queries, refer to `database/CFEventManagementDBQueries.sql`.[cite: 1]
 
 ### 2. Backend Setup
 Navigate to the backend directory and install dependencies:
