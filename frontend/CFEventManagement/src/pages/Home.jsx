@@ -10,7 +10,9 @@ export default function Home() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const { token } = useAuth(); // Import the auth token
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({ funded: true, live: true });
+  const { token } = useAuth();
 
   useEffect(() => {
     getApprovedEvents()
@@ -18,12 +20,33 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (!e.target.closest(".filter-wrap")) setFilterOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const toggleFilter = (key) => setFilters(prev => ({ ...prev, [key]: !prev[key] }));
+
   const filtered = events.filter((e) => {
-  const isSearchMatch = e.title.toLowerCase().includes(search.toLowerCase());
-  const isNotExpired = new Date(e.deadline) >= new Date(); // Only keep events where deadline is today or in the future
-  
-  return isSearchMatch && isNotExpired;
-});
+    const isSearchMatch = e.title.toLowerCase().includes(search.toLowerCase());
+    const isNotExpired = new Date(e.deadline) >= new Date();
+
+    const isFunded = e.status === "funded";
+    const isEnded = e.status === "failed" || e.status === "rejected";
+    const isLive = !isFunded && !isEnded;
+
+    const matchFilter =
+      (filters.funded && isFunded) ||
+      (filters.live && isLive);
+
+    return isSearchMatch && isNotExpired && matchFilter;
+  });
+
+  const activeCount = Object.values(filters).filter(Boolean).length;
 
   return (
     <div className="page-wrap">
@@ -37,8 +60,6 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <Link to="/create-event" className="btn btn-primary hero-cta">Start an Event</Link>
-            
-            {/* Only show "Sign in" if the user is NOT logged in */}
             {!token && (
               <Link to="/login" className="btn btn-outline hero-cta">Sign in</Link>
             )}
@@ -50,16 +71,66 @@ export default function Home() {
         <div className="container">
           <div className="events-toolbar">
             <h2 className="section-heading" style={{ fontSize: "var(--text-xl)", fontWeight: "800", letterSpacing: "-0.02em" }}>Live Events</h2>
-            <div className="search-wrap">
-              <svg className="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-              </svg>
-              <input
-                className="search-input"
-                placeholder="Search events…"
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-              />
+
+            {/* Right side: search + filter */}
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <div className="search-wrap">
+                <svg className="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input
+                  className="search-input"
+                  placeholder="Search events…"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+              </div>
+
+              <div className="filter-wrap">
+                <button
+                  className={`filter-btn ${filterOpen ? "active" : ""}`}
+                  onClick={() => setFilterOpen(p => !p)}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="4" y1="6" x2="20" y2="6"/>
+                    <line x1="8" y1="12" x2="16" y2="12"/>
+                    <line x1="11" y1="18" x2="13" y2="18"/>
+                  </svg>
+                  Filter
+                  {activeCount < 3 && <span className="filter-dot">{activeCount}</span>}
+                </button>
+
+                {filterOpen && (
+                  <div className="filter-dropdown">
+                    <div className="filter-dropdown-title">Show events</div>
+
+                    {[
+                      { key: "live",   label: "Live",   desc: "Open for funding",        color: "live"   },
+                      { key: "funded", label: "Funded", desc: "Fully reached target",    color: "funded" },
+                    ].map(({ key, label, desc, color }) => (
+                      <label className="filter-option" key={key}>
+                        <input
+                          type="checkbox"
+                          checked={filters[key]}
+                          onChange={() => toggleFilter(key)}
+                        />
+                        <span className={`filter-check-box ${color}`} />
+                        <span className="filter-label">
+                          <span className="filter-label-name">{label}</span>
+                          <span className="filter-label-desc">{desc}</span>
+                        </span>
+                      </label>
+                    ))}
+
+                    <button
+                      className="filter-reset"
+                      onClick={() => setFilters({ funded: true, live: true, ended: true })}
+                    >
+                      Reset filters
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

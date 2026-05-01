@@ -1,11 +1,32 @@
+import { useState, useEffect } from "react";   // ← ADD this line
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { getWallet } from "../services/api";    // ← ADD this line
 import "./Navbar.css";
+
 
 export default function Navbar() {
   const { token, user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // ↓ ADD this block
+  const [balance, setBalance] = useState(null);
+
+  useEffect(() => {
+    if (!token) { setBalance(null); return; }
+
+    getWallet(token).then(data => setBalance(data.wallet_balance ?? null));
+
+    const interval = setInterval(() => {
+      getWallet(token)
+        .then(data => setBalance(data.wallet_balance ?? null))
+        .catch(() => setBalance(null));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [token]);
+  // ↑ END ADD
 
   const handleLogout = () => {
     logout();
@@ -34,7 +55,18 @@ export default function Navbar() {
           {token ? (
             <>
               <Link to="/dashboard" className={`nav-link ${isActive("/dashboard")}`}>Dashboard</Link>
-<Link to="/wallet" className={`nav-link ${isActive("/wallet")}`}>Wallet</Link>
+
+              {/* ↓ ONLY this Wallet link is changed */}
+              <Link to="/wallet" className={`nav-link nav-wallet-link ${isActive("/wallet")}`}>
+                <h4>Wallet:</h4>
+                {balance !== null && (
+                  <span className="nav-wallet-bal">
+                    ₹{Number(balance).toLocaleString("en-IN")}
+                  </span>
+                )}
+              </Link>
+              {/* ↑ END change */}
+
               <Link to="/create-event" className={`nav-link ${isActive("/create-event")}`}>+ New Event</Link>
               {user?.role === "admin" && (
                 <Link to="/admin" className={`nav-link ${isActive("/admin")}`}>Admin</Link>
@@ -47,7 +79,6 @@ export default function Navbar() {
             <>
               <Link to="/login" className="nav-link">Login</Link>
               <Link to="/signup" className="btn btn-primary" style={{ marginLeft: "var(--space-2)" }}>Sign Up</Link>
-              
             </>
           )}
         </div>
